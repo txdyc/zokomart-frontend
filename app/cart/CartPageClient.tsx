@@ -248,7 +248,7 @@ export function CartPageClient({
               </span>
               <span className={styles.navLabel}>Cart</span>
             </Link>
-            <Link href="/#me" className={styles.navItem}>
+            <Link href="/me" className={styles.navItem}>
               <span className={styles.navIconWrap}>
                 <span className={styles.navIcon}>◌</span>
               </span>

@@ -266,3 +266,65 @@ export type OrderSummary = {
   totalAmount: string;
   currencyCode: CurrencyCode;
 };
+
+export type BuyerMeProfile = {
+  buyerId: string;
+  fullName: string;
+  phoneNumber: string;
+  avatarUrl?: string | null;
+  buyerRating: string;
+  isVerified: boolean;
+  verificationLabel: string;
+};
+
+export type BuyerMeStats = {
+  orders: number;
+  wishlist: number;
+  reviews: number;
+};
+
+export type BuyerMeWallet = {
+  providerLabel: string;
+  walletPhoneNumber: string;
+  balanceAmount: string;
+  currencyCode: CurrencyCode;
+  maskedBalanceLabel: string;
+  isBalanceHidden: boolean;
+} | null;
+
+export type BuyerMeTransaction = {
+  id: string;
+  title: string;
+  occurredAt: string;
+  displayDateLabel: string;
+  amountLabel: string;
+  direction: "DEBIT" | "CREDIT" | string;
+};
+
+export type BuyerMeRecentOrder = {
+  id: string;
+  orderNumber: string;
+  createdAt: string;
+  displayDateLabel: string;
+  totalAmount: string;
+  currencyCode: CurrencyCode;
+  status: OrderStatus | string;
+  statusLabel: string;
+  thumbnailUrl?: string | null;
+};
+
+export type BuyerMeMenuHints = {
+  activeOrdersLabel: string;
+  wishlistLabel: string;
+  savedAddressesLabel: string;
+  activeVouchersLabel: string;
+};
+
+export type BuyerMeResponse = {
+  profile: BuyerMeProfile;
+  stats: BuyerMeStats;
+  wallet: BuyerMeWallet;
+  recentTransactions: BuyerMeTransaction[];
+  recentOrders: BuyerMeRecentOrder[];
+  menuHints: BuyerMeMenuHints;
+};

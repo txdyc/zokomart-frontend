@@ -224,7 +224,7 @@ export function buildHomePageViewModel(
         placeholder: true,
       },
       { id: "cart", label: "Cart", href: "/cart", icon: "🛒", badgeCount: cartCount },
-      { id: "me", label: "Me", href: "#me", icon: "◌", placeholder: true },
+      { id: "me", label: "Me", href: "/me", icon: "◌" },
     ],
   };
 }

@@ -1,6 +1,7 @@
 import type {
   AddCartItemInput,
   ApiErrorResponse,
+  BuyerMeResponse,
   CartResponse,
   CreateFulfillmentEventInput,
   CreateFulfillmentEventResponse,
@@ -176,6 +177,10 @@ export async function getCart(buyerId?: string): Promise<CartResponse> {
   return buyerRequest<CartResponse>("/cart", { buyerId });
 }
 
+export async function getMe(buyerId?: string): Promise<BuyerMeResponse> {
+  return buyerRequest<BuyerMeResponse>("/me", { buyerId });
+}
+
 export async function addCartItem(
   input: AddCartItemInput,
   buyerId?: string,
@@ -250,6 +255,7 @@ export const catalogApi = {
 
 export const buyerApi = {
   getCart,
+  getMe,
   addCartItem,
   updateCartItem,
   createOrder,
