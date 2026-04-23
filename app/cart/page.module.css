@@ -1,0 +1,504 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 24px 16px 40px;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 36%),
+    linear-gradient(142deg, #1a0a0e 8%, #0a1f14 50%, #1a1a0a 92%);
+}
+
+.phoneFrame {
+  width: 100%;
+  max-width: 393px;
+  overflow: hidden;
+  border-radius: 28px;
+  background: #ffffff;
+  box-shadow:
+    0 0 0 8px #1a1a1a,
+    0 0 0 9px #333333,
+    0 40px 120px rgba(0, 0, 0, 0.8);
+}
+
+.scrollArea {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.topBar {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #ffffff;
+  box-shadow: 0 1px 0 #ebebeb;
+}
+
+.heading {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 900;
+  color: #111111;
+}
+
+.headingMeta {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: #888888;
+}
+
+.topAction {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 999px;
+  background: #fff0f2;
+  color: #ce1126;
+  font-size: 15px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 12px 16px 28px;
+}
+
+.deliveryBar,
+.deliveryLeft,
+.itemHead,
+.itemBottom,
+.stepper,
+.panelTitleRow,
+.promoRow,
+.summaryRow,
+.momoBar,
+.bottomNav {
+  display: flex;
+  align-items: center;
+}
+
+.deliveryBar {
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 40px;
+  padding: 0 12px;
+  border-radius: 14px;
+  background: #f0fff6;
+  border: 1px solid rgba(0, 107, 63, 0.19);
+  color: #333333;
+  font-size: 12px;
+}
+
+.deliveryLeft {
+  gap: 8px;
+  min-width: 0;
+}
+
+.deliveryIcon {
+  color: #006b3f;
+}
+
+.deliveryAction {
+  border: 0;
+  background: transparent;
+  color: #ce1126;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.banner,
+.errorBanner,
+.emptyCard,
+.panel,
+.itemCard {
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.banner,
+.errorBanner {
+  padding: 12px 14px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.bannerSuccess {
+  border: 1px solid rgba(0, 107, 63, 0.2);
+  background: #f0fff6;
+  color: #006b3f;
+}
+
+.bannerError,
+.errorBanner {
+  border: 1px solid rgba(206, 17, 38, 0.15);
+  background: #fff0f2;
+  color: #ce1126;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.itemCard {
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.itemTop {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+}
+
+.itemImage {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, #d8f2ff 0%, #7fd4ff 100%);
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 900;
+}
+
+.itemInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.itemHead {
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.itemTitle {
+  min-width: 0;
+  color: #222222;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.itemMerchant {
+  margin: 4px 0 0;
+  font-size: 10px;
+  color: #888888;
+}
+
+.itemDelete {
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: 10px;
+  background: #fff0f2;
+  font-size: 12px;
+}
+
+.itemBottom {
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.itemPrice {
+  margin: 0;
+  color: #ce1126;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.stepper {
+  gap: 8px;
+}
+
+.stepperButton,
+.stepperButtonPrimary {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.stepperButton {
+  border: 1px solid #dddddd;
+  background: #ffffff;
+  color: #666666;
+}
+
+.stepperButtonPrimary {
+  border: 0;
+  background: #fcd116;
+  color: #111111;
+}
+
+.stepperValue {
+  min-width: 10px;
+  text-align: center;
+  color: #111111;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.itemMetaBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 12px 10px;
+  background: #f5f5f5;
+  color: #888888;
+  font-size: 10px;
+}
+
+.panel {
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.panelTitleRow {
+  gap: 8px;
+}
+
+.panelIcon {
+  color: #006b3f;
+  font-size: 14px;
+}
+
+.panelTitle {
+  margin: 0;
+  color: #111111;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.promoRow {
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.promoInput {
+  flex: 1;
+  min-width: 0;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  border-radius: 14px;
+  border: 1px solid #dddddd;
+  color: rgba(10, 10, 10, 0.5);
+  font-size: 12px;
+}
+
+.applyButton {
+  min-width: 66px;
+  min-height: 40px;
+  border: 0;
+  border-radius: 14px;
+  background: #ce1126;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.summaryRow {
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 12px;
+  color: #666666;
+  font-size: 13px;
+}
+
+.summaryTotal {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+  color: #111111;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.freeText {
+  color: #006b3f;
+  font-weight: 800;
+}
+
+.totalValue {
+  color: #ce1126;
+  font-size: 18px;
+}
+
+.momoBar {
+  gap: 8px;
+  min-height: 56px;
+  padding: 0 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(252, 209, 22, 0.32);
+  background: #fff8e0;
+  color: #7b5900;
+  font-size: 11px;
+}
+
+.momoEmoji {
+  font-size: 18px;
+}
+
+.checkoutBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkoutButton {
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 16px;
+  background: #ce1126;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.continueLink {
+  text-align: center;
+  color: #ce1126;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.emptyCard {
+  padding: 20px 16px;
+  text-align: center;
+}
+
+.emptyTitle {
+  margin: 0;
+  color: #111111;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.emptyText {
+  margin: 8px 0 0;
+  color: #666666;
+  font-size: 12px;
+}
+
+.bottomNav {
+  min-height: 60px;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 13px 8px 11px;
+  background: #ffffff;
+  border-top: 1px solid #ebebeb;
+  box-sizing: border-box;
+}
+
+.navItem {
+  width: 75.45px;
+  min-width: 75.45px;
+  height: 35.99px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.99px;
+  color: #9ca3af;
+  text-align: center;
+  text-decoration: none;
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 500;
+  box-sizing: border-box;
+}
+
+.navItemActive {
+  color: #ce1126;
+  font-weight: 700;
+}
+
+.navIconWrap {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.navIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.navLabel {
+  display: block;
+  line-height: 12px;
+  white-space: nowrap;
+}
+
+.navBadge {
+  position: absolute;
+  top: -6px;
+  left: 12px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 3px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ce1126;
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.navBadgeBounce {
+  animation: navBadgePulse 260ms ease-out;
+}
+
+@keyframes navBadgePulse {
+  0% {
+    transform: scale(1);
+  }
+
+  55% {
+    transform: scale(1.15);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: 0;
+  }
+
+  .phoneFrame {
+    max-width: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}

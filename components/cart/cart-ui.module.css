@@ -1,0 +1,131 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 80;
+}
+
+.flight {
+  position: fixed;
+  left: calc(var(--start-x) * 1px);
+  top: calc(var(--start-y) * 1px);
+  transform: translate(-50%, -50%);
+  animation: packageFlight 720ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.package {
+  position: relative;
+  width: 24px;
+  height: 20px;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #ffd765 0%, #fcd116 100%);
+  border: 1px solid rgba(184, 134, 11, 0.38);
+  box-shadow:
+    0 8px 20px rgba(206, 17, 38, 0.16),
+    0 2px 6px rgba(123, 91, 0, 0.2);
+}
+
+.packageLid,
+.packageRibbonV,
+.packageRibbonH {
+  position: absolute;
+  display: block;
+}
+
+.packageLid {
+  left: 2px;
+  right: 2px;
+  top: -5px;
+  height: 8px;
+  border-radius: 6px 6px 3px 3px;
+  background: linear-gradient(180deg, #ffe590 0%, #ffde73 100%);
+  border: 1px solid rgba(184, 134, 11, 0.28);
+}
+
+.packageRibbonV {
+  top: -1px;
+  bottom: -1px;
+  left: 50%;
+  width: 4px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: #ce1126;
+}
+
+.packageRibbonH {
+  left: 3px;
+  right: 3px;
+  top: 7px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(206, 17, 38, 0.9);
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+  min-width: 180px;
+  max-width: calc(100vw - 32px);
+  padding: 10px 14px;
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.2);
+  z-index: 90;
+}
+
+.toastSuccess {
+  background: #006b3f;
+}
+
+.toastError {
+  background: #ce1126;
+}
+
+.badgeBounce {
+  animation: badgePulse 260ms ease-out;
+}
+
+@keyframes packageFlight {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translate(0, 0) scale(0.92) rotate(0deg);
+  }
+
+  56% {
+    opacity: 1;
+    transform:
+      translate(-50%, -50%)
+      translate(calc(var(--mid-x) * 1px), calc(var(--arc-y) * 1px))
+      scale(1.08)
+      rotate(-12deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translate(-50%, -50%)
+      translate(calc(var(--delta-x) * 1px), calc(var(--delta-y) * 1px))
+      scale(0.24)
+      rotate(14deg);
+  }
+}
+
+@keyframes badgePulse {
+  0% {
+    transform: scale(1);
+  }
+
+  55% {
+    transform: scale(1.16);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
