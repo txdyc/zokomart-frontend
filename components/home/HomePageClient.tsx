@@ -102,9 +102,6 @@ export function HomePageClient({
   const heroSlide = model.heroSlides[0];
   const [pendingProductId, setPendingProductId] = useState<string | null>(null);
   const {
-    cartCount,
-    registerCartAnchor,
-    isCartBadgeBouncing,
     setCartCountFromServer,
     applyOptimisticIncrement,
     animateAddToCart,
@@ -325,37 +322,6 @@ export function HomePageClient({
               </div>
             </section>
           </div>
-
-          <nav aria-label="Bottom Navigation" className={styles.bottomNav}>
-            {model.navItems.map((item) => {
-              const badgeCount = item.id === "cart" ? cartCount : item.badgeCount;
-
-              return (
-                <Link
-                  key={item.id}
-                  className={`${styles.navItem} ${item.active ? styles.navItemActive : ""}`}
-                  href={item.href}
-                >
-                  <span
-                    ref={item.id === "cart" ? registerCartAnchor : undefined}
-                    className={styles.navIconWrap}
-                  >
-                    <span className={styles.navIcon}>{item.icon}</span>
-                    {badgeCount && badgeCount > 0 ? (
-                      <span
-                        className={`${styles.navBadge} ${
-                          item.id === "cart" && isCartBadgeBouncing ? styles.navBadgeBounce : ""
-                        }`}
-                      >
-                        {badgeCount}
-                      </span>
-                    ) : null}
-                  </span>
-                  <span className={styles.navLabel}>{item.label}</span>
-                </Link>
-              );
-            })}
-          </nav>
         </div>
       </div>
     </main>

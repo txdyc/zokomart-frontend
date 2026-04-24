@@ -20,7 +20,7 @@ export default async function HomePage() {
     productResult.status === "rejected"
       ? getApiErrorMessage(productResult.reason, "商品列表暂时不可用，请稍后重试。")
       : undefined;
-  const model = buildHomePageViewModel(productItems, cartCount, bannerItems);
+  const model = buildHomePageViewModel(productItems, bannerItems);
 
   return (
     <HomePageClient

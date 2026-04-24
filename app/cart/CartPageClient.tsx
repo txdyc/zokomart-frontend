@@ -27,13 +27,7 @@ export function CartPageClient({
   const [cart, setCart] = useState(initialCart);
   const [pendingItemId, setPendingItemId] = useState<string | null>(null);
   const [localError, setLocalError] = useState<string | null>(null);
-  const {
-    cartCount,
-    registerCartAnchor,
-    isCartBadgeBouncing,
-    setCartCountFromServer,
-    showToast,
-  } = useCartUi();
+  const { setCartCountFromServer, showToast } = useCartUi();
 
   useEffect(() => {
     setCart(initialCart);
@@ -212,49 +206,6 @@ export function CartPageClient({
               </Link>
             </div>
           </div>
-
-          <nav aria-label="Bottom Navigation" className={styles.bottomNav}>
-            <Link href="/" className={styles.navItem}>
-              <span className={styles.navIconWrap}>
-                <span className={styles.navIcon}>⌂</span>
-              </span>
-              <span className={styles.navLabel}>Home</span>
-            </Link>
-            <Link href="/#top-categories" className={styles.navItem}>
-              <span className={styles.navIconWrap}>
-                <span className={styles.navIcon}>⊞</span>
-              </span>
-              <span className={styles.navLabel}>Categories</span>
-            </Link>
-            <Link href="/#messages" className={styles.navItem}>
-              <span className={styles.navIconWrap}>
-                <span className={styles.navIcon}>✉</span>
-                <span className={styles.navBadge}>3</span>
-              </span>
-              <span className={styles.navLabel}>Messages</span>
-            </Link>
-            <Link href="/cart" className={`${styles.navItem} ${styles.navItemActive}`}>
-              <span ref={registerCartAnchor} className={styles.navIconWrap}>
-                <span className={styles.navIcon}>🛒</span>
-                {cartCount > 0 ? (
-                  <span
-                    className={`${styles.navBadge} ${
-                      isCartBadgeBouncing ? styles.navBadgeBounce : ""
-                    }`}
-                  >
-                    {cartCount}
-                  </span>
-                ) : null}
-              </span>
-              <span className={styles.navLabel}>Cart</span>
-            </Link>
-            <Link href="/me" className={styles.navItem}>
-              <span className={styles.navIconWrap}>
-                <span className={styles.navIcon}>◌</span>
-              </span>
-              <span className={styles.navLabel}>Me</span>
-            </Link>
-          </nav>
         </div>
       </div>
     </main>

@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-import { useCartUi } from "../../components/cart/useCartUi";
 import { resolveAssetUrl } from "../../lib/api";
 import type { BuyerMeRecentOrder, BuyerMeResponse, BuyerMeTransaction } from "../../lib/types";
 import { formatMoney } from "../../lib/view";
@@ -115,17 +114,12 @@ export function MePageClient({ initialMe }: MePageClientProps) {
   const [isBalanceHidden, setIsBalanceHidden] = useState(
     initialMe.wallet?.isBalanceHidden ?? true,
   );
-  const { cartCount, registerCartAnchor, setCartCountFromServer } = useCartUi();
   const profileAvatar = resolveAssetUrl(initialMe.profile.avatarUrl);
   const accountItems = ACCOUNT_MENU.map((factory) => factory(initialMe));
   const balanceLabel =
     !initialMe.wallet || isBalanceHidden
       ? initialMe.wallet?.maskedBalanceLabel ?? "GH₵ ••••••"
       : formatMoney(initialMe.wallet.balanceAmount, initialMe.wallet.currencyCode);
-
-  useEffect(() => {
-    setCartCountFromServer(0);
-  }, [setCartCountFromServer]);
 
   return (
     <main className={styles.page}>
@@ -225,33 +219,6 @@ export function MePageClient({ initialMe }: MePageClientProps) {
 
             <p className={styles.version}>ZokoMart v2.4.1 · Made with ❤️ in Accra, Ghana 🇬🇭</p>
           </div>
-
-          <nav aria-label="Bottom Navigation" className={styles.bottomNav}>
-            <Link href="/" className={styles.navItem}>
-              <span className={styles.navIconWrap}>⌂</span>
-              <span>Home</span>
-            </Link>
-            <Link href="/#top-categories" className={styles.navItem}>
-              <span className={styles.navIconWrap}>⊞</span>
-              <span>Categories</span>
-            </Link>
-            <Link href="/#messages" className={styles.navItem}>
-              <span className={styles.navIconWrap}>
-                ✉<span className={styles.navBadge}>3</span>
-              </span>
-              <span>Messages</span>
-            </Link>
-            <Link href="/cart" className={styles.navItem}>
-              <span ref={registerCartAnchor} className={styles.navIconWrap}>
-                🛒{cartCount > 0 ? <span className={styles.navBadge}>{cartCount}</span> : null}
-              </span>
-              <span>Cart</span>
-            </Link>
-            <Link href="/me" className={`${styles.navItem} ${styles.navItemActive}`}>
-              <span className={styles.navIconWrap}>♙</span>
-              <span>Me</span>
-            </Link>
-          </nav>
         </div>
       </div>
     </main>

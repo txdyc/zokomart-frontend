@@ -24,16 +24,6 @@ export type HomeCategoryItem = {
   borderColor: string;
 };
 
-export type HomeNavItem = {
-  id: "home" | "categories" | "messages" | "cart" | "me";
-  label: string;
-  href: string;
-  icon: string;
-  active?: boolean;
-  badgeCount?: number;
-  placeholder?: boolean;
-};
-
 export type HomeProductCard = {
   id: string;
   name: string;
@@ -53,8 +43,6 @@ export type HomePageViewModel = {
   categories: HomeCategoryItem[];
   flashSaleItems: HomeProductCard[];
   recommendedItems: HomeProductCard[];
-  navItems: HomeNavItem[];
-  cartCount: number;
   heroPrimaryHref: string;
 };
 
@@ -191,7 +179,6 @@ function buildRecommendedItems(products: ProductListItem[]) {
 
 export function buildHomePageViewModel(
   products: ProductListItem[],
-  cartCount: number,
   banners: HomeBannerResponse[] = [],
 ): HomePageViewModel {
   const flashSaleItems = sliceCards(products, 0, 4);
@@ -205,26 +192,5 @@ export function buildHomePageViewModel(
     flashSaleItems,
     recommendedItems,
     heroPrimaryHref,
-    cartCount,
-    navItems: [
-      { id: "home", label: "Home", href: "/", icon: "⌂", active: true },
-      {
-        id: "categories",
-        label: "Categories",
-        href: "#top-categories",
-        icon: "⊞",
-        placeholder: true,
-      },
-      {
-        id: "messages",
-        label: "Messages",
-        href: "#messages",
-        icon: "✉",
-        badgeCount: 3,
-        placeholder: true,
-      },
-      { id: "cart", label: "Cart", href: "/cart", icon: "🛒", badgeCount: cartCount },
-      { id: "me", label: "Me", href: "/me", icon: "◌" },
-    ],
   };
 }

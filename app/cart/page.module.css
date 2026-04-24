@@ -23,6 +23,8 @@
 .scrollArea {
   min-height: 100vh;
   background: #f5f5f5;
+  padding-bottom: var(--global-tabbar-safe-space);
+  box-sizing: border-box;
 }
 
 .topBar {
@@ -76,8 +78,7 @@
 .panelTitleRow,
 .promoRow,
 .summaryRow,
-.momoBar,
-.bottomNav {
+.momoBar {
   display: flex;
   align-items: center;
 }
@@ -397,98 +398,6 @@
   margin: 8px 0 0;
   color: #666666;
   font-size: 12px;
-}
-
-.bottomNav {
-  min-height: 60px;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 13px 8px 11px;
-  background: #ffffff;
-  border-top: 1px solid #ebebeb;
-  box-sizing: border-box;
-}
-
-.navItem {
-  width: 75.45px;
-  min-width: 75.45px;
-  height: 35.99px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 1.99px;
-  color: #9ca3af;
-  text-align: center;
-  text-decoration: none;
-  font-size: 10px;
-  line-height: 12px;
-  font-weight: 500;
-  box-sizing: border-box;
-}
-
-.navItemActive {
-  color: #ce1126;
-  font-weight: 700;
-}
-
-.navIconWrap {
-  position: relative;
-  width: 22px;
-  height: 22px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.navIcon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  line-height: 22px;
-}
-
-.navLabel {
-  display: block;
-  line-height: 12px;
-  white-space: nowrap;
-}
-
-.navBadge {
-  position: absolute;
-  top: -6px;
-  left: 12px;
-  min-width: 16px;
-  height: 16px;
-  padding: 0 3px;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: #ce1126;
-  color: #ffffff;
-  font-size: 9px;
-  font-weight: 700;
-}
-
-.navBadgeBounce {
-  animation: navBadgePulse 260ms ease-out;
-}
-
-@keyframes navBadgePulse {
-  0% {
-    transform: scale(1);
-  }
-
-  55% {
-    transform: scale(1.15);
-  }
-
-  100% {
-    transform: scale(1);
-  }
 }
 
 @media (max-width: 480px) {

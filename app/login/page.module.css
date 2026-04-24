@@ -1,0 +1,329 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px 16px 40px;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 36%),
+    linear-gradient(142deg, #1a0a0e 8%, #0a1f14 50%, #1a1a0a 92%);
+}
+
+.phoneFrame {
+  width: 100%;
+  max-width: 393px;
+  background: #ffffff;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 8px #1a1a1a,
+    0 0 0 9px #333333,
+    0 40px 120px rgba(0, 0, 0, 0.8);
+}
+
+.scrollArea {
+  min-height: 852px;
+  background: #fafafa;
+  display: flex;
+  flex-direction: column;
+}
+
+.brandSection {
+  position: relative;
+  padding: 0 20px 32px;
+  background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+}
+
+.flagStrip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: 5px;
+  overflow: hidden;
+}
+
+.flagRed {
+  background: #ce1126;
+}
+
+.flagGold {
+  background: #fcd116;
+}
+
+.flagGreen {
+  background: #006b3f;
+}
+
+.logoBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding-top: 36px;
+}
+
+.logoBadge {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #ce1126 0%, #a50e20 100%);
+  box-shadow: 0 8px 24px rgba(206, 17, 38, 0.35);
+}
+
+.logoGlyphPrimary {
+  color: #ffffff;
+  font-size: 36px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.logoGlyphAccent {
+  position: absolute;
+  right: 18px;
+  bottom: 14px;
+  color: #fcd116;
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.logoWordmark {
+  margin: 0;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  font-size: 26px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: #111111;
+}
+
+.logoTagline {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid #c2e9d1;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ecfff3 0%, #d8f4e4 100%);
+  color: #1f6d4a;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(0, 107, 63, 0.12);
+}
+
+.logoTaglineDot {
+  color: #00a05b;
+}
+
+.welcomeCopy {
+  margin-top: 28px;
+  text-align: center;
+  color: #222222;
+}
+
+.welcomeCopy p {
+  margin: 0;
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 800;
+}
+
+.loginSection {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 0 20px 32px;
+}
+
+.loginCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.07);
+}
+
+.tabBar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 4px;
+  border-radius: 16px;
+  background: #f0f0f0;
+}
+
+.tabItem {
+  min-height: 36px;
+  border-radius: 14px;
+  color: #888888;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tabItemActive {
+  background: #ce1126;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(206, 17, 38, 0.35);
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldLabel {
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 600;
+  color: #444444;
+  letter-spacing: 0.3px;
+}
+
+.inputControl,
+.inputField,
+.passwordField {
+  min-height: 50px;
+  border-radius: 16px;
+  border: 1px solid #e8e8e8;
+  background: #f8f8f8;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.inputControl {
+  width: 100%;
+  padding: 0 14px;
+  font: inherit;
+  color: #111111;
+  box-sizing: border-box;
+}
+
+.inputControl::placeholder {
+  color: #999999;
+}
+
+.inputField,
+.passwordField {
+  display: flex;
+  align-items: center;
+  padding-left: 14px;
+}
+
+.inputField .inputControl,
+.passwordField .inputControl {
+  border: 0;
+  background: transparent;
+  padding-left: 0;
+}
+
+.inputField:focus-within,
+.passwordField:focus-within {
+  outline: none;
+  border-color: rgba(206, 17, 38, 0.5);
+  box-shadow: 0 0 0 3px rgba(206, 17, 38, 0.12);
+  background: #ffffff;
+}
+
+.inputControlError,
+.inputFieldError,
+.passwordFieldError {
+  border-color: #ce1126;
+}
+
+.fieldIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  color: #959595;
+  font-size: 14px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.visibilityToggle {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  color: #aaaaaa;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.fieldError,
+.submitError {
+  margin: 0;
+  font-size: 12px;
+  line-height: 18px;
+  color: #ce1126;
+}
+
+.formMeta {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.secondaryLink,
+.registerLink {
+  color: #ce1126;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.secondaryLink:hover,
+.secondaryLink:focus-visible,
+.registerLink:hover,
+.registerLink:focus-visible {
+  text-decoration: underline;
+}
+
+.primaryAction {
+  min-height: 52px;
+  border: 0;
+  border-radius: 16px;
+  background: linear-gradient(90deg, #ce1126 0%, #a50e20 100%);
+  color: #ffffff;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 800;
+  box-shadow: 0 4px 16px rgba(206, 17, 38, 0.4);
+  cursor: pointer;
+}
+
+.primaryAction:disabled {
+  cursor: wait;
+  opacity: 0.9;
+}
+
+.registerPrompt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 20px 0 0;
+  color: #888888;
+  font-size: 13px;
+}
+
+.trustRow {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+  color: #aaaaaa;
+  font-size: 10px;
+  flex-wrap: wrap;
+}
