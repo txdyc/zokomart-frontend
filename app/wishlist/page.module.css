@@ -1,0 +1,413 @@
+.page {
+  height: 100dvh;
+  overflow: hidden;
+  background: #f5f5f5;
+  color: #111111;
+  scrollbar-width: none;
+}
+
+.page::-webkit-scrollbar,
+.surface::-webkit-scrollbar,
+.scrollArea::-webkit-scrollbar,
+.filterScroller::-webkit-scrollbar {
+  display: none;
+}
+
+.surface {
+  width: 100%;
+  max-width: 440px;
+  height: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #f5f5f5;
+  scrollbar-width: none;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #ffffff;
+  box-shadow: 0 1px 0 #ebebeb;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 16px 16px 0;
+}
+
+.iconButton,
+.sortButton,
+.clearButton,
+.filterChip,
+.heartButton,
+.addButton,
+.addAllButton {
+  font: inherit;
+  cursor: pointer;
+}
+
+.iconButton {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  color: #111111;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.titleBlock {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.title {
+  margin: 0;
+  color: #111111;
+  font-size: 18px;
+  line-height: 27px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.countBadge {
+  min-width: 22px;
+  height: 20px;
+  padding: 0 7px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ce1126;
+  color: #ffffff;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 800;
+  box-sizing: border-box;
+}
+
+.headerActions {
+  display: flex;
+  gap: 8px;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px 8px;
+}
+
+.sortButton,
+.clearButton {
+  border: 0;
+  background: transparent;
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 700;
+}
+
+.sortButton {
+  color: #888888;
+}
+
+.clearButton {
+  color: #ce1126;
+}
+
+.filterScroller {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 16px 12px;
+  scrollbar-width: none;
+}
+
+.filterChip {
+  min-height: 38px;
+  flex: 0 0 auto;
+  border: 1px solid #e8e8e8;
+  border-radius: 999px;
+  padding: 0 16px;
+  background: #ffffff;
+  color: #555555;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.filterChipActive {
+  border-color: #ce1126;
+  background: #ce1126;
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.scrollArea {
+  height: calc(100dvh - 150px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px 16px 0;
+  scrollbar-width: none;
+  box-sizing: border-box;
+}
+
+.savingsBanner {
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1px solid #b2dfca;
+  border-radius: 16px;
+  background: #e8f5ee;
+  box-sizing: border-box;
+}
+
+.savingsIcon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.savingsTitle,
+.savingsText {
+  margin: 0;
+}
+
+.savingsTitle {
+  color: #006b3f;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 900;
+}
+
+.savingsText {
+  color: #4a9b6b;
+  font-size: 10px;
+  line-height: 15px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px 12px;
+  padding: 16px 0 18px;
+}
+
+.card {
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.07);
+}
+
+.imageWrap {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #eeeeee;
+}
+
+.productImage {
+  object-fit: cover;
+}
+
+.discount,
+.flash,
+.heartButton {
+  position: absolute;
+}
+
+.discount {
+  top: 8px;
+  left: 8px;
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 10px;
+  padding: 0 7px;
+  background: #ce1126;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.flash {
+  bottom: 8px;
+  left: 8px;
+  min-height: 18px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0 8px;
+  background: rgba(206, 17, 38, 0.9);
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.heartButton {
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  color: #ce1126;
+  font-size: 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+}
+
+.cardBody {
+  padding: 8px 10px 10px;
+}
+
+.cardTitle {
+  min-height: 32px;
+  margin: 0;
+  overflow: hidden;
+  color: #111111;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 800;
+}
+
+.merchant {
+  margin: 4px 0 0;
+  overflow: hidden;
+  color: #999999;
+  font-size: 10px;
+  line-height: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ratingRow,
+.priceRow,
+.addButton,
+.addAllButton {
+  display: flex;
+  align-items: center;
+}
+
+.ratingRow {
+  gap: 4px;
+  margin-top: 8px;
+  color: #bbbbbb;
+  font-size: 10px;
+  line-height: 16px;
+}
+
+.ratingRow strong {
+  color: #333333;
+  font-size: 11px;
+}
+
+.star {
+  color: #f5c400;
+  font-size: 10px;
+}
+
+.priceRow {
+  gap: 6px;
+  min-height: 22px;
+  margin-top: 7px;
+  flex-wrap: wrap;
+}
+
+.price {
+  color: #ce1126;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 900;
+}
+
+.originalPrice {
+  color: #bbbbbb;
+  font-size: 11px;
+  line-height: 16px;
+  text-decoration: line-through;
+}
+
+.addButton {
+  width: 100%;
+  min-height: 33px;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+  border: 0;
+  border-radius: 14px;
+  background: #ce1126;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.ctaDock {
+  position: sticky;
+  bottom: 0;
+  padding: 8px 0 24px;
+  background: linear-gradient(rgba(245, 245, 245, 0), #f5f5f5 18%);
+}
+
+.addAllButton {
+  width: 100%;
+  min-height: 49px;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 16px;
+  background: #ce1126;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 900;
+  box-shadow: 0 4px 8px rgba(206, 17, 38, 0.3);
+}
+
+@media (min-width: 481px) {
+  .page {
+    padding: 24px 0;
+    background: #f5f5f5;
+    box-sizing: border-box;
+  }
+
+  .surface {
+    border-radius: 24px;
+  }
+}
+
+@media (max-width: 360px) {
+  .titleRow,
+  .metaRow,
+  .filterScroller,
+  .scrollArea {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .grid {
+    gap: 16px 10px;
+  }
+
+  .filterChip {
+    padding: 0 14px;
+  }
+}

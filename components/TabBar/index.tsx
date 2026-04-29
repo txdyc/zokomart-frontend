@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 import { buyerApi } from "../../lib/api";
@@ -19,8 +19,8 @@ type TabItem = {
 
 const TAB_ITEMS: TabItem[] = [
   { id: "home", label: "Home", href: "/", icon: "⌂" },
-  { id: "category", label: "Category", href: "/#top-categories", icon: "⊞" },
-  { id: "messages", label: "Messages", href: "/#messages", icon: "✉", badgeCount: 3 },
+  { id: "category", label: "Categories", href: "/categories", icon: "⊞" },
+  { id: "messages", label: "Messages", href: "/messages", icon: "✉", badgeCount: 3 },
   { id: "cart", label: "Cart", href: "/cart", icon: "🛒" },
   { id: "me", label: "Me", href: "/me", icon: "◌" },
 ];
@@ -34,15 +34,17 @@ function shouldHideTabBar(pathname: string) {
     pathname === "/login" ||
     pathname === "/checkout" ||
     pathname.startsWith("/merchant") ||
+    pathname === "/orders" ||
     pathname.startsWith("/orders/") ||
-    pathname.startsWith("/products/")
+    pathname === "/wishlist" ||
+    pathname.startsWith("/products/") ||
+    pathname.startsWith("/messages/")
   );
 }
 
 export default function TabBar() {
   const router = useRouter();
   const pathname = usePathname();
-  const [hash, setHash] = useState("");
   const {
     cartCount,
     isCartBadgeBouncing,
@@ -51,23 +53,6 @@ export default function TabBar() {
   } = useCartUi();
 
   const isHidden = shouldHideTabBar(pathname);
-
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      return undefined;
-    }
-
-    const syncHash = () => {
-      setHash(window.location.hash);
-    };
-
-    syncHash();
-    window.addEventListener("hashchange", syncHash);
-
-    return () => {
-      window.removeEventListener("hashchange", syncHash);
-    };
-  }, [pathname]);
 
   useEffect(() => {
     if (isHidden) {
@@ -102,15 +87,19 @@ export default function TabBar() {
 
   function isActive(tabId: TabId) {
     if (tabId === "home") {
-      return pathname === "/" && hash !== "#top-categories" && hash !== "#messages";
+      return pathname === "/";
     }
 
     if (tabId === "category") {
-      return pathname === "/" && hash === "#top-categories";
+      return (
+        pathname === "/categories" ||
+        pathname.startsWith("/categories/") ||
+        pathname.startsWith("/category/")
+      );
     }
 
     if (tabId === "messages") {
-      return pathname === "/" && hash === "#messages";
+      return pathname === "/messages" || pathname.startsWith("/messages/");
     }
 
     if (tabId === "cart") {

@@ -21,8 +21,8 @@ type MenuItem = {
 };
 
 const ACCOUNT_MENU: Array<(me: BuyerMeResponse) => MenuItem> = [
-  (me) => ({ label: "My Orders", icon: "📦", href: "#recent-orders", hint: me.menuHints.activeOrdersLabel }),
-  (me) => ({ label: "Wishlist", icon: "♡", href: "#wishlist", hint: me.menuHints.wishlistLabel }),
+  (me) => ({ label: "My Orders", icon: "📦", href: "/orders", hint: me.menuHints.activeOrdersLabel }),
+  (me) => ({ label: "Wishlist", icon: "♡", href: "/wishlist", hint: me.menuHints.wishlistLabel }),
   (me) => ({ label: "Saved Addresses", icon: "⌖", href: "#addresses", hint: me.menuHints.savedAddressesLabel }),
   (me) => ({ label: "Vouchers & Coupons", icon: "🏷️", href: "#vouchers", hint: me.menuHints.activeVouchersLabel }),
   () => ({ label: "My Reviews", icon: "☆", href: "#reviews" }),
@@ -39,17 +39,19 @@ function StatButton({
   icon,
   value,
   label,
+  href,
 }: {
   icon: string;
   value: number;
   label: string;
+  href?: string;
 }) {
   return (
-    <a className={styles.statButton} href={`#${label.toLowerCase()}`}>
+    <Link className={styles.statButton} href={href ?? `#${label.toLowerCase()}`}>
       <span className={styles.statIcon}>{icon}</span>
       <strong>{value}</strong>
       <span>{label}</span>
-    </a>
+    </Link>
   );
 }
 
@@ -156,13 +158,18 @@ export function MePageClient({ initialMe }: MePageClientProps) {
 
             <section className={styles.statsGrid}>
               <StatButton icon="📦" value={initialMe.stats.orders} label="Orders" />
-              <StatButton icon="♥" value={initialMe.stats.wishlist} label="Wishlist" />
+              <StatButton
+                icon="♥"
+                value={initialMe.stats.wishlist}
+                label="Wishlist"
+                href="/wishlist"
+              />
               <StatButton icon="⭐" value={initialMe.stats.reviews} label="Reviews" />
             </section>
           </header>
 
           <div className={styles.content}>
-            <section className={styles.walletCard}>
+            {/*<section className={styles.walletCard}>
               <div className={styles.walletTop}>
                 <div>
                   <p>{initialMe.wallet?.providerLabel ?? "MTN MOMO WALLET"}</p>
@@ -186,9 +193,9 @@ export function MePageClient({ initialMe }: MePageClientProps) {
               <span aria-hidden="true" className={styles.walletHeart}>
                 💛
               </span>
-            </section>
+            </section>*/}
 
-            <section className={styles.card} id="transactions">
+            {/*<section className={styles.card} id="transactions">
               <div className={styles.sectionHeader}>
                 <h2>Recent Transactions</h2>
                 <a href="#wallet-history">See all</a>
@@ -200,7 +207,7 @@ export function MePageClient({ initialMe }: MePageClientProps) {
               ) : (
                 <p className={styles.emptyText}>No wallet activity yet.</p>
               )}
-            </section>
+            </section>*/}
 
             <section className={styles.card} id="recent-orders">
               <div className={styles.sectionHeader}>

@@ -259,6 +259,75 @@ export type CreateFulfillmentEventResponse = {
   event: FulfillmentEvent;
 };
 
+export type CategoryTone =
+  | "rose"
+  | "green"
+  | "amber"
+  | "purple"
+  | "blue"
+  | "orange"
+  | "neutral"
+  | "sky";
+
+export type CategoryItem = {
+  id: string;
+  slug: string;
+  name: string;
+  localName: string;
+  emoji: string;
+  tone: CategoryTone;
+};
+
+export type CategoryBadge = "Hot" | "Popular" | null;
+
+export type CategorySummary = {
+  subcategoryCount: number;
+  totalItemCount: number;
+};
+
+export type CategoryDetail = CategoryItem & {
+  summary: CategorySummary;
+};
+
+export type SubcategoryItem = {
+  id: string;
+  categoryId: string;
+  name: string;
+  emoji: string;
+  itemCount: number;
+  badge: CategoryBadge;
+};
+
+export type ProductCardImageRatio = "square" | "portrait" | "wide";
+
+export type SubcategoryProductCardItem = {
+  id: string;
+  categoryId: string;
+  subcategoryId: string;
+  name: string;
+  imageUrl: string;
+  imageRatio: ProductCardImageRatio;
+  priceAmount: string;
+  originalPriceAmount?: string | null;
+  currencyCode: CurrencyCode;
+  discountPercent?: number | null;
+  rating: string;
+  reviewCount: number;
+  sellerTag: string;
+  isOnSale?: boolean;
+  isNew?: boolean;
+  freeDelivery?: boolean;
+};
+
+export type CategorySearchParams = {
+  query?: string;
+};
+
+export type CategorySearchResult = {
+  items: CategoryItem[];
+  total: number;
+};
+
 export type OrderSummary = {
   id: string;
   orderNumber: string;
@@ -327,4 +396,62 @@ export type BuyerMeResponse = {
   recentTransactions: BuyerMeTransaction[];
   recentOrders: BuyerMeRecentOrder[];
   menuHints: BuyerMeMenuHints;
+};
+
+export type MessageFilter = "all" | "chat" | "order";
+
+export type MessageStatusTone = "warning" | "success" | "danger";
+
+export type MessageStatusTag = {
+  label: string;
+  tone: MessageStatusTone;
+};
+
+export type MessageConversation = {
+  id: string;
+  title: string;
+  preview: string;
+  timeLabel: string;
+  avatarType: "emoji";
+  avatarValue: string;
+  avatarImageUrl?: string | null;
+  unreadCount: number;
+  isUnread: boolean;
+  category: "chat" | "order";
+  statusTag?: MessageStatusTag;
+  isOnline?: boolean;
+};
+
+export type MessageQuickTip = {
+  title: string;
+  description: string;
+};
+
+export type MessagesPageData = {
+  unreadTotal: number;
+  activeFilter: MessageFilter;
+  conversations: MessageConversation[];
+  quickTip: MessageQuickTip;
+};
+
+export type ChatMessageSender = "me" | "other";
+
+export type ChatMessageReadState = "sent" | "delivered" | "read";
+
+export type ChatMessage = {
+  id: string;
+  sender: ChatMessageSender;
+  content: string;
+  timestamp: string;
+  readState?: ChatMessageReadState;
+};
+
+export type MessageConversationDetail = {
+  id: string;
+  title: string;
+  avatarType: "emoji";
+  avatarValue: string;
+  avatarImageUrl?: string | null;
+  isOnline?: boolean;
+  messages: ChatMessage[];
 };

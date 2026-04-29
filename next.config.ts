@@ -35,7 +35,14 @@ function buildRemotePatterns() {
 
 const nextConfig: NextConfig = {
   images: {
-    remotePatterns: buildRemotePatterns(),
+    remotePatterns: [
+      ...buildRemotePatterns(),
+      {
+        protocol: "https",
+        hostname: "www.figma.com",
+        pathname: "/api/mcp/asset/**",
+      },
+    ],
   },
 };
 
