@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "test": "node lib/url.test.mjs && node lib/avatar-upload.test.mjs && node lib/view.test.mjs && node app/me/avatar-rendering.test.mjs && node app/me/mobile-shell.test.mjs && node components/TabBar/tabbar-figma.test.mjs && node app/addresses/address-list-page.test.mjs && node app/addresses/address-form-page.test.mjs",
     "start": "next start",
     "lint": "next lint"
   },

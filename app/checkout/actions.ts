@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { ApiError, buyerApi } from "../../lib/api";
+import { getServerAccessToken } from "../../lib/server-auth";
 import type { CreateOrderInput } from "../../lib/types";
 import { serializeValidationFieldErrors } from "../../lib/view";
 
@@ -25,6 +26,11 @@ function readRequiredField(formData: FormData, fieldName: string) {
 }
 
 export async function createOrderAction(formData: FormData) {
+  const authToken = await getServerAccessToken();
+  if (!authToken) {
+    redirect("/login?redirect=%2Fcheckout");
+  }
+
   const payload: CreateOrderInput = {
     shippingAddress: {
       recipientName: readRequiredField(formData, "recipientName"),
@@ -82,7 +88,7 @@ export async function createOrderAction(formData: FormData) {
   }
 
   try {
-    const order = await buyerApi.createOrder(payload);
+    const order = await buyerApi.createOrder(payload, authToken);
     revalidatePath("/cart");
     revalidatePath(`/orders/${order.id}`);
     redirect(`/orders/${order.id}?message=created`);

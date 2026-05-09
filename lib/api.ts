@@ -1,7 +1,11 @@
 import type {
   AddCartItemInput,
   ApiErrorResponse,
+  BuyerAuthUser,
+  BuyerAvatarUploadResponse,
+  BuyerLoginResponse,
   BuyerMeResponse,
+  BuyerProfileUpdateInput,
   CartResponse,
   CreateFulfillmentEventInput,
   CreateFulfillmentEventResponse,
@@ -15,15 +19,19 @@ import type {
   ProductListResponse,
   UpdateCartItemInput,
 } from "./types";
+import { getStoredAccessToken } from "./auth";
+import {
+  getApiBaseUrl,
+  resolveApiRequestUrl,
+  resolveAssetUrl as resolveAssetUrlValue,
+} from "./url";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
-const DEFAULT_BUYER_ID =
-  process.env.NEXT_PUBLIC_BUYER_ID ?? "00000000-0000-0000-0000-000000000101";
+const API_BASE_URL = getApiBaseUrl();
 const DEFAULT_MERCHANT_ID =
   process.env.NEXT_PUBLIC_MERCHANT_ID ?? "c5ce3f6d-3ca0-4b44-84a0-d2bc3f520fa3";
 
 type RequestOptions = Omit<RequestInit, "body" | "headers"> & {
-  buyerId?: string;
+  authToken?: string;
   merchantId?: string;
   body?: unknown;
   headers?: HeadersInit;
@@ -43,30 +51,22 @@ export class ApiError extends Error {
 }
 
 function resolveUrl(path: string, searchParams?: URLSearchParams) {
-  const url = new URL(path, API_BASE_URL);
-  if (searchParams) {
-    url.search = searchParams.toString();
-  }
-  return url.toString();
-}
-
-function stripTrailingSlash(value: string) {
-  return value.endsWith("/") ? value.slice(0, -1) : value;
+  return resolveApiRequestUrl(path, searchParams, API_BASE_URL);
 }
 
 function buildHeaders({
-  buyerId,
+  authToken,
   merchantId,
   body,
   headers,
-}: Pick<RequestOptions, "buyerId" | "merchantId" | "body" | "headers">) {
+}: Pick<RequestOptions, "authToken" | "merchantId" | "body" | "headers">) {
   const requestHeaders = new Headers(headers);
 
   if (body !== undefined && !requestHeaders.has("Content-Type")) {
     requestHeaders.set("Content-Type", "application/json");
   }
-  if (buyerId) {
-    requestHeaders.set("X-Buyer-Id", buyerId);
+  if (authToken) {
+    requestHeaders.set("Authorization", `Bearer ${authToken}`);
   }
   if (merchantId) {
     requestHeaders.set("X-Merchant-Id", merchantId);
@@ -102,11 +102,12 @@ async function parseError(response: Response): Promise<ApiError> {
 }
 
 async function request<T>(path: string, options: RequestOptions = {}): Promise<T> {
-  const { body, buyerId, merchantId, headers, searchParams, ...init } = options;
+  const { body, authToken, merchantId, headers, searchParams, ...init } = options;
+  const resolvedAuthToken = authToken ?? getStoredAccessToken() ?? undefined;
   const response = await fetch(resolveUrl(path, searchParams), {
     cache: "no-store",
     ...init,
-    headers: buildHeaders({ buyerId, merchantId, body, headers }),
+    headers: buildHeaders({ authToken: resolvedAuthToken, merchantId, body, headers }),
     body: body === undefined ? undefined : JSON.stringify(body),
   });
 
@@ -114,11 +115,11 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
     throw await parseError(response);
   }
 
-  return (await response.json()) as T;
-}
+  if (response.status === 204) {
+    return undefined as T;
+  }
 
-async function buyerRequest<T>(path: string, options: RequestOptions = {}) {
-  return request<T>(path, { ...options, buyerId: options.buyerId ?? DEFAULT_BUYER_ID });
+  return (await response.json()) as T;
 }
 
 async function merchantRequest<T>(path: string, options: RequestOptions = {}) {
@@ -129,19 +130,7 @@ async function merchantRequest<T>(path: string, options: RequestOptions = {}) {
 }
 
 export function resolveAssetUrl(assetUrl: string | null | undefined) {
-  if (!assetUrl) {
-    return null;
-  }
-
-  if (/^[a-z][a-z\d+\-.]*:/i.test(assetUrl) || assetUrl.startsWith("//")) {
-    return assetUrl;
-  }
-
-  try {
-    return new URL(assetUrl, `${stripTrailingSlash(API_BASE_URL)}/`).toString();
-  } catch {
-    return assetUrl;
-  }
+  return resolveAssetUrlValue(assetUrl, API_BASE_URL);
 }
 
 export async function getHealthcheck(): Promise<HealthcheckResponse> {
@@ -173,50 +162,108 @@ export async function getProductDetail(productId: string): Promise<ProductDetail
   return request<ProductDetailResponse>(`/products/${productId}`);
 }
 
-export async function getCart(buyerId?: string): Promise<CartResponse> {
-  return buyerRequest<CartResponse>("/cart", { buyerId });
+export async function getCart(authToken?: string): Promise<CartResponse> {
+  return request<CartResponse>("/cart", { authToken });
 }
 
-export async function getMe(buyerId?: string): Promise<BuyerMeResponse> {
-  return buyerRequest<BuyerMeResponse>("/me", { buyerId });
+export async function loginBuyer(input: {
+  phoneNumber: string;
+  password: string;
+}): Promise<BuyerLoginResponse> {
+  return request<BuyerLoginResponse>("/api/auth/login", {
+    method: "POST",
+    body: input,
+  });
+}
+
+export async function logoutBuyer(authToken?: string): Promise<void> {
+  await request<void>("/api/auth/logout", {
+    method: "POST",
+    authToken,
+  });
+}
+
+export async function getCurrentBuyer(authToken?: string): Promise<BuyerAuthUser> {
+  return request<BuyerAuthUser>("/api/auth/me", { authToken });
+}
+
+export async function getMe(authToken?: string): Promise<BuyerMeResponse> {
+  return request<BuyerMeResponse>("/me", { authToken });
+}
+
+export async function uploadBuyerAvatar(
+  file: File,
+  authToken?: string,
+): Promise<BuyerAvatarUploadResponse> {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await fetch(resolveUrl("/me/avatar"), {
+    cache: "no-store",
+    method: "POST",
+    headers: buildHeaders({
+      authToken: authToken ?? getStoredAccessToken() ?? undefined,
+      merchantId: undefined,
+      body: undefined,
+      headers: undefined,
+    }),
+    body: formData,
+  });
+
+  if (!response.ok) {
+    throw await parseError(response);
+  }
+
+  return (await response.json()) as BuyerAvatarUploadResponse;
+}
+
+export async function updateBuyerProfile(
+  input: BuyerProfileUpdateInput,
+  authToken?: string,
+): Promise<BuyerMeResponse> {
+  return request<BuyerMeResponse>("/me/profile", {
+    method: "PATCH",
+    body: input,
+    authToken,
+  });
 }
 
 export async function addCartItem(
   input: AddCartItemInput,
-  buyerId?: string,
+  authToken?: string,
 ): Promise<CartResponse> {
-  return buyerRequest<CartResponse>("/cart/items", {
+  return request<CartResponse>("/cart/items", {
     method: "POST",
     body: input,
-    buyerId,
+    authToken,
   });
 }
 
 export async function updateCartItem(
   itemId: string,
   input: UpdateCartItemInput,
-  buyerId?: string,
+  authToken?: string,
 ): Promise<CartResponse> {
-  return buyerRequest<CartResponse>(`/cart/items/${itemId}`, {
+  return request<CartResponse>(`/cart/items/${itemId}`, {
     method: "PATCH",
     body: input,
-    buyerId,
+    authToken,
   });
 }
 
 export async function createOrder(
   input: CreateOrderInput,
-  buyerId?: string,
+  authToken?: string,
 ): Promise<OrderDetailResponse> {
-  return buyerRequest<OrderDetailResponse>("/orders", {
+  return request<OrderDetailResponse>("/orders", {
     method: "POST",
     body: input,
-    buyerId,
+    authToken,
   });
 }
 
-export async function getOrder(orderId: string, buyerId?: string): Promise<OrderDetailResponse> {
-  return buyerRequest<OrderDetailResponse>(`/orders/${orderId}`, { buyerId });
+export async function getOrder(orderId: string, authToken?: string): Promise<OrderDetailResponse> {
+  return request<OrderDetailResponse>(`/orders/${orderId}`, { authToken });
 }
 
 export async function listMerchantOrders(merchantId?: string): Promise<MerchantOrderListResponse> {
@@ -254,8 +301,13 @@ export const catalogApi = {
 };
 
 export const buyerApi = {
+  login: loginBuyer,
+  logout: logoutBuyer,
+  getCurrentUser: getCurrentBuyer,
   getCart,
   getMe,
+  uploadAvatar: uploadBuyerAvatar,
+  updateProfile: updateBuyerProfile,
   addCartItem,
   updateCartItem,
   createOrder,

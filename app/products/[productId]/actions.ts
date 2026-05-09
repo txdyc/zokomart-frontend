@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { ApiError, buyerApi } from "../../../lib/api";
+import { getServerAccessToken } from "../../../lib/server-auth";
 
 function buildRedirectUrl(path: string, params: Record<string, string | undefined>) {
   const searchParams = new URLSearchParams();
@@ -33,9 +34,14 @@ function normalizeInternalReturnPath(rawReturnPath: string) {
 }
 
 async function submitCartAction(formData: FormData, successPath: string) {
+  const authToken = await getServerAccessToken();
   const skuId = String(formData.get("skuId") ?? "").trim();
   const quantity = Number(formData.get("quantity"));
   const returnPath = normalizeInternalReturnPath(String(formData.get("returnPath") ?? "/"));
+
+  if (!authToken) {
+    redirect(`/login?redirect=${encodeURIComponent(returnPath)}`);
+  }
 
   if (!skuId || !Number.isInteger(quantity) || quantity <= 0) {
     redirect(
@@ -47,7 +53,7 @@ async function submitCartAction(formData: FormData, successPath: string) {
   }
 
   try {
-    await buyerApi.addCartItem({ skuId, quantity });
+    await buyerApi.addCartItem({ skuId, quantity }, authToken);
     revalidatePath("/cart");
     redirect(successPath);
   } catch (error) {

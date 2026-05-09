@@ -1,0 +1,529 @@
+.page {
+  min-height: 100vh;
+  background: #f5f5f5;
+  color: #111111;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.screen {
+  position: relative;
+  width: 100%;
+  max-width: 393px;
+  height: 100vh;
+  background: #f5f5f5;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.screen::-webkit-scrollbar,
+.content::-webkit-scrollbar,
+.textarea::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  min-height: 64px;
+  padding: 16px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  box-shadow: 0 1px 0 #ebebeb;
+}
+
+.header h1 {
+  flex: 1;
+  margin: 0;
+  color: #111111;
+  font-size: 17px;
+  line-height: 25.5px;
+  font-weight: 900;
+  text-align: center;
+}
+
+.backButton,
+.headerSpacer,
+.fieldSymbol,
+.countryButton,
+.regionButton,
+.choiceButton,
+.defaultRow,
+.toggle,
+.confirmButton,
+.tipIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.backButton,
+.headerSpacer {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+}
+
+.backButton {
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #f5f5f5;
+  color: #111111;
+  cursor: pointer;
+}
+
+.form {
+  min-height: calc(100vh - 64px);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 16px calc(116px + env(safe-area-inset-bottom));
+  overflow: visible;
+}
+
+.card {
+  overflow: hidden;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.locationCard {
+  padding-top: 16px;
+}
+
+.fieldRow {
+  min-height: 53px;
+  padding: 13px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.fieldRow:last-child {
+  border-bottom: 0;
+}
+
+.fieldRowTall {
+  min-height: 104px;
+  align-items: start;
+}
+
+.fieldLabel {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #555555;
+}
+
+.fieldSymbol {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+  color: #aaaaaa;
+  font-size: 13px;
+  line-height: 14px;
+  font-weight: 600;
+}
+
+.personSymbol::before,
+.personSymbol::after,
+.phoneSymbol::before {
+  position: absolute;
+  content: "";
+  box-sizing: border-box;
+}
+
+.personSymbol::before {
+  top: 2px;
+  left: 5px;
+  width: 4px;
+  height: 4px;
+  border: 1.4px solid currentColor;
+  border-radius: 999px;
+}
+
+.personSymbol::after {
+  left: 3px;
+  bottom: 2px;
+  width: 8px;
+  height: 5px;
+  border: 1.4px solid currentColor;
+  border-top-left-radius: 999px;
+  border-top-right-radius: 999px;
+  border-bottom: 0;
+}
+
+.phoneSymbol::before {
+  top: 2px;
+  left: 4px;
+  width: 7px;
+  height: 10px;
+  border: 1.4px solid currentColor;
+  border-top-width: 2px;
+  border-radius: 3px;
+  transform: rotate(-28deg);
+}
+
+.fieldLabelText {
+  min-width: 0;
+  color: #555555;
+  font-size: 13px;
+  line-height: 19.5px;
+  font-weight: 600;
+}
+
+.requiredMark,
+.errorText {
+  color: #ce1126;
+}
+
+.fieldControl {
+  min-width: 0;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #111111;
+  font: inherit;
+  font-size: 14px;
+  line-height: 21px;
+  outline: none;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: rgba(17, 17, 17, 0.5);
+}
+
+.textarea {
+  display: block;
+  resize: none;
+  min-height: 43px;
+  overflow: auto;
+  scrollbar-width: none;
+}
+
+.phoneControl {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.countryButton {
+  flex: 0 0 auto;
+  height: 34px;
+  gap: 5px;
+  padding: 0 11px;
+  border: 1px solid #ebebeb;
+  border-radius: 10px;
+  background: #f5f5f5;
+  color: #333333;
+  cursor: pointer;
+}
+
+.countryButton span,
+.countryButton strong {
+  font-size: 13px;
+  line-height: 19.5px;
+}
+
+.countryButton strong {
+  font-weight: 900;
+}
+
+.chevron {
+  color: #999999;
+  font-size: 10px;
+}
+
+.helperText,
+.errorText {
+  margin: 3px 0 0;
+  font-size: 10px;
+  line-height: 15px;
+}
+
+.helperText {
+  color: #ce1126;
+}
+
+.segmentedControl {
+  min-height: 50px;
+  margin: 0 16px 12px;
+  padding: 6px;
+  border-radius: 16px;
+  background: #f5f5f5;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.locationRows {
+  border-top: 0;
+}
+
+.regionButton {
+  width: 100%;
+  min-height: 24px;
+  justify-content: space-between;
+  gap: 8px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #111111;
+  font-size: 14px;
+  line-height: 21px;
+  cursor: pointer;
+}
+
+.rowChevron {
+  color: #cccccc;
+  font-size: 20px;
+  line-height: 20px;
+}
+
+.defaultRow {
+  width: 100%;
+  min-height: 72px;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px;
+  border: 0;
+  border-bottom: 1px solid #f0f0f0;
+  background: #ffffff;
+  color: #111111;
+  text-align: left;
+  cursor: pointer;
+}
+
+.defaultRow span:first-child {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.defaultRow strong {
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 800;
+}
+
+.defaultRow small {
+  color: #aaaaaa;
+  font-size: 11px;
+  line-height: 15.5px;
+  font-weight: 600;
+}
+
+.toggle {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+  border: 1px solid #cccccc;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #ffffff;
+}
+
+.toggleActive {
+  border-color: #ce1126;
+  background: #ce1126;
+}
+
+.optionRow {
+  min-height: 64px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.optionRow:last-child {
+  border-bottom: 0;
+}
+
+.usageRow {
+  align-items: start;
+}
+
+.optionLabel {
+  color: #555555;
+  font-size: 13px;
+  line-height: 19.5px;
+  font-weight: 600;
+}
+
+.choiceGroup {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.usageGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.choiceButton {
+  min-height: 35px;
+  gap: 6px;
+  border: 1px solid #ebebeb;
+  border-radius: 14px;
+  padding: 0 12px;
+  background: #f8f8f8;
+  color: #888888;
+  font-size: 11px;
+  line-height: 16.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.segmentedControl .choiceButton {
+  width: 100%;
+  border-color: transparent;
+  background: transparent;
+  color: #999999;
+  font-size: 12px;
+}
+
+.choiceButtonSelected {
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-weight: 900;
+}
+
+.choiceButtonBlue {
+  border-color: #2196f3;
+  background: #ebf5ff;
+  color: #2196f3;
+  box-shadow: none;
+}
+
+.segmentedControl .choiceButtonBlue {
+  border-color: transparent;
+  background: #ffffff;
+  color: #111111;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.choiceButtonRed {
+  border-color: #ce1126;
+  background: #fff0f2;
+  color: #ce1126;
+  box-shadow: none;
+}
+
+.tipBox {
+  min-height: 82px;
+  padding: 13px 17px;
+  border: 1px solid #fcd116;
+  border-radius: 16px;
+  background: #fffbeb;
+  box-sizing: border-box;
+  display: flex;
+  gap: 12px;
+}
+
+.tipIcon {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  border-radius: 999px;
+  background: #fcd116;
+  color: #7b5b00;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 900;
+}
+
+.tipBox p {
+  margin: 0;
+  color: #7b5b00;
+  font-size: 12px;
+  line-height: 18.6px;
+}
+
+.tipBox strong {
+  font-weight: 900;
+}
+
+.bottomBar {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  z-index: 30;
+  width: 100%;
+  max-width: 393px;
+  padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  background: #ffffff;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.07);
+  transform: translateX(-50%);
+}
+
+.confirmButton {
+  width: 100%;
+  min-height: 56px;
+  gap: 8px;
+  border: 0;
+  border-radius: 16px;
+  background: #ce1126;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(206, 17, 38, 0.32);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 900;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+
+.iconImage {
+  display: block;
+}
+
+@media (max-width: 374px) {
+  .fieldRow,
+  .optionRow {
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .choiceGroup {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .screen,
+  .bottomBar {
+    max-width: none;
+  }
+}

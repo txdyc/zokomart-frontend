@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import { buyerApi } from "../../lib/api";
+import { getServerAccessToken } from "../../lib/server-auth";
 import { getApiErrorMessage, pickFirstQueryValue } from "../../lib/view";
 import { CartPageClient } from "./CartPageClient";
 
@@ -40,9 +42,14 @@ function getBannerCopy(searchParams: Record<string, string | string[] | undefine
 export default async function CartPage({ searchParams }: CartPageProps) {
   const resolvedSearchParams = await searchParams;
   const banner = getBannerCopy(resolvedSearchParams);
+  const authToken = await getServerAccessToken();
+
+  if (!authToken) {
+    redirect("/login?redirect=%2Fcart");
+  }
 
   try {
-    const cart = await buyerApi.getCart();
+    const cart = await buyerApi.getCart(authToken);
 
     return (
       <CartPageClient

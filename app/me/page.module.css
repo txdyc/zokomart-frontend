@@ -88,6 +88,7 @@
   height: 32px;
   background: #f5f5f5;
   color: #333333;
+  text-decoration: none;
 }
 
 .profileBlock {
@@ -111,11 +112,16 @@
   font-size: 22px;
 }
 
-.avatar img {
-  width: 100%;
-  height: 100%;
+.avatarImage {
+  display: block;
+  width: 64px;
+  height: 64px;
+  max-width: 64px;
+  max-height: 64px;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 999px;
+  flex: 0 0 64px;
 }
 
 .avatarCheck {
@@ -517,11 +523,13 @@
 @media (max-width: 480px) {
   .page {
     padding: 0;
+    background: #f5f5f5;
   }
 
   .phoneFrame {
     max-width: none;
     border-radius: 0;
+    background: #f5f5f5;
     box-shadow: none;
   }
 

@@ -18,6 +18,10 @@ export function getApiErrorMessage(error: unknown, fallbackMessage: string) {
     return `${error.detail.code}: ${error.detail.message}`;
   }
 
+  if (error instanceof Error && error.message.trim()) {
+    return error.message;
+  }
+
   return fallbackMessage;
 }
 

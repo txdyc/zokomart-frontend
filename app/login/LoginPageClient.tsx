@@ -4,6 +4,8 @@ import Link from "next/link";
 import { FormEvent, Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
+import { useAuth } from "../../components/auth/useAuth";
+import { ApiError, buyerApi } from "../../lib/api";
 import styles from "./page.module.css";
 
 type FormErrors = {
@@ -41,6 +43,7 @@ export function LoginPageClient() {
 function LoginPageClientContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { setSession } = useAuth();
   const redirectTarget = getSafeRedirect(searchParams.get("redirect"));
 
   const [identifier, setIdentifier] = useState("");
@@ -55,7 +58,7 @@ function LoginPageClientContent() {
     const nextErrors: FormErrors = {};
 
     if (!identifier.trim()) {
-      nextErrors.identifier = "请输入手机号或邮箱";
+      nextErrors.identifier = "请输入手机号";
     }
 
     if (!password.trim()) {
@@ -65,7 +68,7 @@ function LoginPageClientContent() {
     return nextErrors;
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const nextErrors = validate();
     setErrors(nextErrors);
@@ -76,13 +79,24 @@ function LoginPageClientContent() {
 
     try {
       setIsSubmitting(true);
-      localStorage.setItem("token", "mock_token");
+      const loginResponse = await buyerApi.login({
+        phoneNumber: identifier.trim(),
+        password: password.trim(),
+      });
+      setSession(loginResponse);
       router.push(redirectTarget);
       return;
-    } catch {
-      setErrors({
-        submit: "登录暂时不可用，请稍后重试。",
-      });
+    } catch (error) {
+      if (error instanceof ApiError) {
+        setErrors({
+          submit: error.detail.message || "登录失败，请检查手机号和密码。",
+        });
+      } else {
+        setErrors({
+          submit: "登录暂时不可用，请稍后重试。",
+        });
+      }
+    } finally {
       setIsSubmitting(false);
     }
   }
@@ -129,20 +143,18 @@ function LoginPageClientContent() {
             </div>
 
             <label className={styles.formField}>
-              <span className={styles.fieldLabel}>Phone Number or Email</span>
+              <span className={styles.fieldLabel}>Phone Number</span>
               <div
                 className={`${styles.inputField} ${identifierHasError ? styles.inputFieldError : ""}`}
               >
-                <span className={styles.fieldIcon} aria-hidden="true">
-                  @
-                </span>
+                
                 <input
                   aria-invalid={identifierHasError}
                   autoComplete="username"
                   className={styles.inputControl}
                   name="identifier"
                   onChange={(event) => setIdentifier(event.target.value)}
-                  placeholder="024 000 0000 or you@example.com"
+                  placeholder="024 000 0000"
                   value={identifier}
                 />
               </div>

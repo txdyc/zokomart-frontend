@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import { buyerApi } from "../../lib/api";
+import { getServerAccessToken } from "../../lib/server-auth";
 import {
   buildFieldErrorMap,
   formatMoney,
@@ -32,9 +34,14 @@ export default async function CheckoutPage({ searchParams }: CheckoutPageProps) 
   const errorBanner = getErrorBanner(resolvedSearchParams);
   const fieldErrors = parseValidationFieldErrors(resolvedSearchParams.fieldErrors);
   const fieldErrorMap = buildFieldErrorMap(fieldErrors, { stripPrefix: "shippingAddress." });
+  const authToken = await getServerAccessToken();
+
+  if (!authToken) {
+    redirect("/login?redirect=%2Fcheckout");
+  }
 
   try {
-    const cart = await buyerApi.getCart();
+    const cart = await buyerApi.getCart(authToken);
 
     return (
       <main className="mx-auto max-w-5xl bg-slate-50 px-6 py-10">

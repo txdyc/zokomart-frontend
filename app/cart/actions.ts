@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { ApiError, buyerApi } from "../../lib/api";
+import { getServerAccessToken } from "../../lib/server-auth";
 
 function buildRedirectUrl(path: string, params: Record<string, string | undefined>) {
   const searchParams = new URLSearchParams();
@@ -19,6 +20,11 @@ function buildRedirectUrl(path: string, params: Record<string, string | undefine
 }
 
 export async function updateCartItemAction(formData: FormData) {
+  const authToken = await getServerAccessToken();
+  if (!authToken) {
+    redirect("/login?redirect=%2Fcart");
+  }
+
   const itemId = String(formData.get("itemId") ?? "").trim();
   const quantity = Number(formData.get("quantity"));
 
@@ -32,7 +38,7 @@ export async function updateCartItemAction(formData: FormData) {
   }
 
   try {
-    await buyerApi.updateCartItem(itemId, { quantity });
+    await buyerApi.updateCartItem(itemId, { quantity }, authToken);
     revalidatePath("/cart");
     redirect("/cart?message=updated");
   } catch (error) {
@@ -53,4 +59,3 @@ export async function updateCartItemAction(formData: FormData) {
     );
   }
 }
-

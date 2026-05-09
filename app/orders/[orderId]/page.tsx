@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import { buyerApi } from "../../../lib/api";
+import { getServerAccessToken } from "../../../lib/server-auth";
 import { formatDateTime, formatMoney, getApiErrorMessage, pickFirstQueryValue } from "../../../lib/view";
 
 import PaymentCountdown from "./payment-countdown";
@@ -134,9 +136,14 @@ export default async function OrderPage({ params, searchParams }: OrderPageProps
   const { orderId } = await params;
   const resolvedSearchParams = await searchParams;
   const banner = getBanner(resolvedSearchParams);
+  const authToken = await getServerAccessToken();
+
+  if (!authToken) {
+    redirect(`/login?redirect=${encodeURIComponent(`/orders/${orderId}`)}`);
+  }
 
   try {
-    const order = await buyerApi.getOrder(orderId);
+    const order = await buyerApi.getOrder(orderId, authToken);
     const summary = getOrderSummaryViewModel(order.status, order.paymentIntent.status);
 
     return (

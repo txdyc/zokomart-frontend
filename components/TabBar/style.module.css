@@ -12,23 +12,22 @@
 .nav {
   width: 100%;
   max-width: 393px;
-  min-height: 60px;
+  min-height: 54px;
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: 13px 8px calc(11px + env(safe-area-inset-bottom, 0px));
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  padding: 9px 8px calc(9px + env(safe-area-inset-bottom, 0px));
   background: #ffffff;
-  border-top: 1px solid #ebebeb;
-  border-radius: 0 0 28px 28px;
-  box-shadow: 0 -8px 30px rgba(15, 23, 42, 0.08);
+  border-top: 1.108px solid #ebebeb;
   box-sizing: border-box;
   pointer-events: auto;
 }
 
 .item {
-  width: 75.45px;
-  min-width: 75.45px;
-  min-height: 36px;
+  width: 75.449px;
+  min-width: 75.449px;
+  height: 35.985px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -60,12 +59,11 @@
   flex-shrink: 0;
 }
 
-.icon {
+.svgIcon {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  line-height: 22px;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
 }
 
 .label {

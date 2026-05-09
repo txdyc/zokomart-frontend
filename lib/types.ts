@@ -30,6 +30,21 @@ export type ApiErrorResponse = {
   detail: ApiErrorDetail;
 };
 
+export type BuyerAuthUser = {
+  buyerId: string;
+  fullName: string;
+  phoneNumber: string;
+  avatarUrl?: string | null;
+  verified: boolean;
+};
+
+export type BuyerLoginResponse = {
+  accessToken: string;
+  tokenType: string;
+  expiresInSeconds: number;
+  user: BuyerAuthUser;
+};
+
 export type HealthcheckResponse = {
   status: string;
 };
@@ -341,9 +356,30 @@ export type BuyerMeProfile = {
   fullName: string;
   phoneNumber: string;
   avatarUrl?: string | null;
+  bio?: string | null;
   buyerRating: string;
   isVerified: boolean;
   verificationLabel: string;
+};
+
+export type BuyerAvatarUploadResponse = {
+  avatarUrl: string;
+  contentType: string;
+  sizeBytes: number;
+};
+
+export type BuyerProfileUpdateInput = {
+  nickname: string;
+  bio: string;
+  avatarUrl: string;
+};
+
+export type AvatarSource = "camera" | "library";
+
+export type PickedAvatarFile = {
+  file: File;
+  previewUrl: string;
+  source: AvatarSource;
 };
 
 export type BuyerMeStats = {

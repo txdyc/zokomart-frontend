@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
+import { useAuth } from "../../components/auth/useAuth";
 import { resolveAssetUrl } from "../../lib/api";
 import type { BuyerMeRecentOrder, BuyerMeResponse, BuyerMeTransaction } from "../../lib/types";
 import { formatMoney } from "../../lib/view";
@@ -23,7 +25,7 @@ type MenuItem = {
 const ACCOUNT_MENU: Array<(me: BuyerMeResponse) => MenuItem> = [
   (me) => ({ label: "My Orders", icon: "📦", href: "/orders", hint: me.menuHints.activeOrdersLabel }),
   (me) => ({ label: "Wishlist", icon: "♡", href: "/wishlist", hint: me.menuHints.wishlistLabel }),
-  (me) => ({ label: "Saved Addresses", icon: "⌖", href: "#addresses", hint: me.menuHints.savedAddressesLabel }),
+  (me) => ({ label: "Saved Addresses", icon: "⌖", href: "/addresses?from=me", hint: me.menuHints.savedAddressesLabel }),
   (me) => ({ label: "Vouchers & Coupons", icon: "🏷️", href: "#vouchers", hint: me.menuHints.activeVouchersLabel }),
   () => ({ label: "My Reviews", icon: "☆", href: "#reviews" }),
 ];
@@ -113,6 +115,8 @@ function MenuSection({ title, items }: { title: string; items: MenuItem[] }) {
 }
 
 export function MePageClient({ initialMe }: MePageClientProps) {
+  const router = useRouter();
+  const { logout } = useAuth();
   const [isBalanceHidden, setIsBalanceHidden] = useState(
     initialMe.wallet?.isBalanceHidden ?? true,
   );
@@ -123,6 +127,11 @@ export function MePageClient({ initialMe }: MePageClientProps) {
       ? initialMe.wallet?.maskedBalanceLabel ?? "GH₵ ••••••"
       : formatMoney(initialMe.wallet.balanceAmount, initialMe.wallet.currencyCode);
 
+  async function handleSignOut() {
+    await logout();
+    router.push("/login");
+  }
+
   return (
     <main className={styles.page}>
       <div className={styles.phoneFrame}>
@@ -130,15 +139,21 @@ export function MePageClient({ initialMe }: MePageClientProps) {
           <header className={styles.header}>
             <div className={styles.headerTop}>
               <h1>My Account</h1>
-              <button aria-label="Edit profile" className={styles.circleButton} type="button">
+              <Link aria-label="Edit profile" className={styles.circleButton} href="/me/edit">
                 ✎
-              </button>
+              </Link>
             </div>
 
             <section className={styles.profileBlock}>
               <div className={styles.avatar}>
                 {profileAvatar ? (
-                  <img alt={initialMe.profile.fullName} src={profileAvatar} />
+                  <img
+                    alt={initialMe.profile.fullName}
+                    className={styles.avatarImage}
+                    height={64}
+                    src={profileAvatar}
+                    width={64}
+                  />
                 ) : (
                   <span>{initialMe.profile.fullName.slice(0, 1)}</span>
                 )}
@@ -222,7 +237,36 @@ export function MePageClient({ initialMe }: MePageClientProps) {
             </section>
 
             <MenuSection title="My Account" items={accountItems} />
-            <MenuSection title="Settings" items={SETTINGS_MENU} />
+            <section className={styles.menuCard}>
+              <h2>Settings</h2>
+              {SETTINGS_MENU.map((item) =>
+                item.label === "Sign Out" ? (
+                  <button
+                    key={item.label}
+                    className={`${styles.menuItem} ${item.danger ? styles.menuItemDanger : ""}`}
+                    type="button"
+                    onClick={() => {
+                      void handleSignOut();
+                    }}
+                  >
+                    <span className={styles.menuIcon}>{item.icon}</span>
+                    <span className={styles.menuLabel}>{item.label}</span>
+                    <span className={styles.chevron}>›</span>
+                  </button>
+                ) : (
+                  <a
+                    key={item.label}
+                    className={`${styles.menuItem} ${item.danger ? styles.menuItemDanger : ""}`}
+                    href={item.href}
+                  >
+                    <span className={styles.menuIcon}>{item.icon}</span>
+                    <span className={styles.menuLabel}>{item.label}</span>
+                    {item.hint ? <span className={styles.menuHint}>{item.hint}</span> : null}
+                    <span className={styles.chevron}>›</span>
+                  </a>
+                ),
+              )}
+            </section>
 
             <p className={styles.version}>ZokoMart v2.4.1 · Made with ❤️ in Accra, Ghana 🇬🇭</p>
           </div>

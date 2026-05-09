@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { buyerApi, catalogApi, resolveAssetUrl } from "../../../lib/api";
+import { getServerAccessToken } from "../../../lib/server-auth";
 import { getApiErrorMessage, pickFirstQueryValue } from "../../../lib/view";
 
 import { ProductDetailView } from "./ProductDetailView";
@@ -16,6 +17,7 @@ export default async function ProductDetailPage({
 }: ProductDetailPageProps) {
   const { productId } = await params;
   const resolvedSearchParams = await searchParams;
+  const authToken = await getServerAccessToken();
   const actionErrorMessage = pickFirstQueryValue(resolvedSearchParams.errorMessage);
   const actionErrorCode = pickFirstQueryValue(resolvedSearchParams.error);
   const actionError = actionErrorMessage ?? actionErrorCode;
@@ -23,7 +25,7 @@ export default async function ProductDetailPage({
   try {
     const [productDetail, cartResult] = await Promise.all([
       catalogApi.getProductDetail(productId),
-      buyerApi.getCart().catch(() => null),
+      authToken ? buyerApi.getCart(authToken).catch(() => null) : Promise.resolve(null),
     ]);
     const product = {
       ...productDetail,

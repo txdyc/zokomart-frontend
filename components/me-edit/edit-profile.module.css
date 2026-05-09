@@ -1,0 +1,582 @@
+.page {
+  height: 100dvh;
+  overflow: hidden;
+  background: #f5f5f5;
+  color: #111111;
+}
+
+.page::-webkit-scrollbar,
+.panel::-webkit-scrollbar,
+.scrollArea::-webkit-scrollbar {
+  display: none;
+}
+
+.panel {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  background: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  scrollbar-width: none;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  min-height: 56px;
+  padding: 10px 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  box-shadow: 0 1px 0 #ebebeb;
+}
+
+.backButton,
+.saveButton,
+.cameraButton,
+.changePhotoButton,
+.trailingButton,
+.inlineActionButton,
+.deleteButton {
+  font: inherit;
+  cursor: pointer;
+}
+
+.backButton {
+  min-width: 73px;
+  min-height: 33px;
+  padding: 6px 8px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #ce1126;
+  text-decoration: none;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+.backIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.headerTitleWrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.headerTitle {
+  margin: 0;
+  text-align: center;
+  color: #111111;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 900;
+}
+
+.saveButton {
+  min-width: 68px;
+  height: 36px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 14px;
+  background: #ce1126;
+  color: #ffffff;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 700;
+  box-shadow: 0 2px 4px rgba(206, 17, 38, 0.3);
+  position: relative;
+  z-index: 1;
+  margin-left: auto;
+  transition:
+    opacity 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.saveButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+  box-shadow: none;
+  transform: none;
+}
+
+.scrollArea {
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.photoSection {
+  background: #ffffff;
+  padding: 28px 16px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatarWrap {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.avatarFrame {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  margin: 0 auto;
+  border: 2.4px solid #ce1126;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #111111;
+  box-shadow: 0 4px 20px rgba(206, 17, 38, 0.2);
+}
+
+.avatarFrame[data-uploading="true"] {
+  opacity: 0.72;
+}
+
+.avatarImage {
+  object-fit: cover;
+}
+
+.avatarFallback {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.cameraButton {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ce1126;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(206, 17, 38, 0.4);
+}
+
+.cameraIcon {
+  width: 15px;
+  height: 15px;
+}
+
+.changePhotoButton {
+  margin-top: 10px;
+  border: 0;
+  background: transparent;
+  color: #ce1126;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 600;
+}
+
+.cameraButton:disabled,
+.changePhotoButton:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.photoHint {
+  margin: 3px 0 0;
+  color: #aaaaaa;
+  font-size: 11px;
+  line-height: 17px;
+  text-align: center;
+}
+
+.avatarErrorText {
+  margin: 10px 16px 0;
+  color: #ce1126;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+}
+
+.content {
+  padding: 16px 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sectionCard {
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.sectionEyebrow {
+  margin: 0;
+  padding: 16px 16px 8px;
+  color: #999999;
+  font-size: 11px;
+  line-height: 17px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.fieldGroup {
+  padding: 8px 16px 16px;
+}
+
+.fieldLabel {
+  display: block;
+  color: #888888;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.inputShell,
+.textAreaShell {
+  display: flex;
+  align-items: center;
+  border: 0.8px solid #e8e8e8;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  box-sizing: border-box;
+}
+
+.inputShell {
+  min-height: 52px;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 0 16px;
+}
+
+.leadingIcon {
+  width: 15px;
+  height: 15px;
+  color: #c7c7c7;
+  flex: 0 0 auto;
+}
+
+.textInput,
+.textArea {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #111111;
+  font: inherit;
+  resize: none;
+}
+
+.textInput {
+  min-width: 0;
+  height: 22px;
+  padding: 0;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 500;
+}
+
+.textInput::placeholder,
+.textArea::placeholder {
+  color: rgba(17, 17, 17, 0.5);
+}
+
+.trailingButton {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #d5d5d5;
+  flex: 0 0 auto;
+}
+
+.textAreaShell {
+  min-height: 88px;
+  margin-top: 8px;
+  align-items: flex-start;
+  padding: 12px 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.textArea {
+  min-height: 84px;
+  padding: 0;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.fieldHint,
+.counterText,
+.securityHint,
+.versionText {
+  margin: 0;
+}
+
+.fieldHint {
+  margin-top: 6px;
+  color: #aaaaaa;
+  font-size: 11px;
+  line-height: 17px;
+}
+
+.counterText {
+  margin-top: 6px;
+  color: #cccccc;
+  font-size: 11px;
+  line-height: 17px;
+  text-align: right;
+}
+
+.divider {
+  height: 1px;
+  background: #f5f5f5;
+}
+
+.infoRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 0.8px solid #f5f5f5;
+}
+
+.infoIconWrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.infoIconWrap svg,
+.successIcon svg,
+.inlineActionIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.infoIconSuccess {
+  background: #e8f5ee;
+  color: #006b3f;
+}
+
+.infoIconDanger {
+  background: #fff0f2;
+  color: #ce1126;
+}
+
+.infoText {
+  min-width: 0;
+  flex: 1;
+}
+
+.infoLabel {
+  margin: 0;
+  color: #aaaaaa;
+  font-size: 11px;
+  line-height: 17px;
+}
+
+.infoValue {
+  margin: 1px 0 0;
+  color: #111111;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 600;
+}
+
+.inlineActionButton {
+  min-width: 86px;
+  height: 32px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 14px;
+  background: #fff0f2;
+  color: #ce1126;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 700;
+}
+
+.inlineActionIcon {
+  width: 13px;
+  height: 13px;
+}
+
+.successBanner {
+  margin: 4px 16px 12px;
+  min-height: 32px;
+  padding: 8px 12px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f0fff6;
+  color: #006b3f;
+  font-size: 11px;
+  line-height: 17px;
+  font-weight: 600;
+}
+
+.successIcon {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #006b3f;
+  color: #ffffff;
+  flex: 0 0 auto;
+}
+
+.securityHint {
+  padding: 4px 16px 16px;
+  color: #aaaaaa;
+  font-size: 11px;
+  line-height: 16.5px;
+}
+
+.deleteButton {
+  min-height: 48px;
+  border: 0.8px solid rgba(206, 17, 38, 0.13);
+  border-radius: 16px;
+  background: #fff0f2;
+  color: #ce1126;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.versionText {
+  color: #cccccc;
+  text-align: center;
+  font-size: 10px;
+  line-height: 15px;
+}
+
+.sheetOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: flex-end;
+}
+
+.sheetBackdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(17, 17, 17, 0.42);
+}
+
+.sheetPanel {
+  position: relative;
+  width: 100%;
+  padding: 12px 16px calc(20px + env(safe-area-inset-bottom, 0px));
+  border-radius: 24px 24px 0 0;
+  background: #ffffff;
+  box-shadow: 0 -12px 40px rgba(17, 17, 17, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sheetActionButton,
+.sheetCancelButton {
+  min-height: 52px;
+  border-radius: 18px;
+  border: 0;
+  font: inherit;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sheetActionButton {
+  background: #fff6f7;
+  color: #111111;
+}
+
+.sheetCancelButton {
+  background: #ce1126;
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(206, 17, 38, 0.24);
+}
+
+@media (min-width: 481px) {
+  .page {
+    padding: 24px 16px;
+    box-sizing: border-box;
+  }
+
+  .panel {
+    max-width: 394px;
+    height: calc(100dvh - 48px);
+    max-height: 852px;
+    border-radius: 28px;
+    box-shadow: 0 24px 64px rgba(17, 17, 17, 0.18);
+  }
+
+  .sheetOverlay {
+    justify-content: center;
+  }
+
+  .sheetPanel {
+    max-width: 394px;
+    border-radius: 24px;
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 360px) {
+  .content {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .fieldGroup,
+  .sectionEyebrow,
+  .infoRow,
+  .securityHint {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .successBanner {
+    margin-right: 14px;
+    margin-left: 14px;
+  }
+}

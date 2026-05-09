@@ -1,0 +1,582 @@
+.page {
+  min-height: 100vh;
+  background: #f5f5f5;
+  color: #111111;
+  display: flex;
+  justify-content: center;
+}
+
+.screen {
+  position: relative;
+  width: 100%;
+  max-width: 393px;
+  min-height: 100vh;
+  background: #f5f5f5;
+  overflow-x: hidden;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  min-height: 68px;
+  padding: 16px 16px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  box-shadow: 0 1px 0 #ebebeb;
+}
+
+.header h1 {
+  flex: 1;
+  margin: 0;
+  color: #111111;
+  font-size: 18px;
+  line-height: 27px;
+  font-weight: 900;
+}
+
+.backButton,
+.countBadge,
+.deliveryIcon,
+.radioControl,
+.addButton,
+.actionButton,
+.typeBadge,
+.serviceBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.backButton {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  color: #111111;
+  background: #f5f5f5;
+  cursor: pointer;
+}
+
+.countBadge {
+  min-width: 28px;
+  height: 22px;
+  padding: 0 9px;
+  border-radius: 999px;
+  background: #f5f5f5;
+  color: #555555;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 800;
+  box-sizing: border-box;
+}
+
+.content {
+  padding: 16px 16px calc(118px + env(safe-area-inset-bottom));
+}
+
+.contentEmpty {
+  padding: 0 0 calc(118px + env(safe-area-inset-bottom));
+}
+
+.deliveryNotice {
+  min-height: 58px;
+  padding: 12px 16px;
+  border: 1px solid #b2dfca;
+  border-radius: 16px;
+  background: #e8f5ee;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.deliveryIcon {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  border-radius: 999px;
+  background: #006b3f;
+  color: #ffffff;
+}
+
+.deliveryNotice p {
+  margin: 0;
+  color: #006b3f;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 800;
+}
+
+.deliveryNotice span {
+  display: block;
+  margin-top: 1px;
+  color: #4a9b6b;
+  font-size: 10px;
+  line-height: 15px;
+}
+
+.addressList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.addressCard {
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.addressCardDefault {
+  border: 2px solid #ce1126;
+  box-shadow: 0 4px 20px rgba(206, 17, 38, 0.1);
+}
+
+.addressCardMoving {
+  transform: translateY(-8px);
+  box-shadow: 0 14px 28px rgba(206, 17, 38, 0.15);
+}
+
+.defaultBanner {
+  min-height: 34px;
+  padding: 8px 16px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid #fddde2;
+  background: #fff0f2;
+  color: #ce1126;
+  font-size: 11px;
+  line-height: 17px;
+  font-weight: 800;
+}
+
+.cardBody {
+  padding: 16px;
+}
+
+.cardHeader,
+.cardFooter,
+.personLine,
+.addressCode,
+.serviceRow,
+.actionRow {
+  display: flex;
+  align-items: center;
+}
+
+.cardHeader {
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.personLine {
+  min-width: 0;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.personLine strong {
+  color: #111111;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 900;
+}
+
+.personLine span {
+  color: #666666;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.typeBadge {
+  flex: 0 0 auto;
+  gap: 4px;
+  min-height: 23px;
+  padding: 0 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  line-height: 15px;
+  font-weight: 800;
+}
+
+.homeBadge {
+  background: #ebf5ff;
+  color: #2196f3;
+}
+
+.workBadge {
+  background: #fff5e6;
+  color: #ff9800;
+}
+
+.streetAddress {
+  margin: 12px 0 0;
+  color: #555555;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.addressCode {
+  gap: 6px;
+  margin-top: 7px;
+  color: #aaaaaa;
+  font-size: 11px;
+  line-height: 17px;
+}
+
+.serviceRow {
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.serviceBadge {
+  gap: 4px;
+  min-height: 19px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: #f5f5f5;
+  color: #888888;
+  font-size: 10px;
+  line-height: 15px;
+  font-weight: 700;
+}
+
+.divider {
+  height: 1px;
+  margin-top: 12px;
+  background: #f5f5f5;
+}
+
+.cardFooter {
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 12px;
+}
+
+.defaultButton {
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #777777;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.defaultButtonSelected {
+  color: #ce1126;
+  font-weight: 800;
+}
+
+.radioControl {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  border: 1px solid #cccccc;
+  border-radius: 999px;
+  color: #ffffff;
+  background: #ffffff;
+  box-sizing: border-box;
+  transform: scale(1);
+  transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease;
+}
+
+.radioControlSelected {
+  border-color: #ce1126;
+  background: #ce1126;
+  transform: scale(1.05);
+}
+
+.actionRow {
+  flex: 0 0 auto;
+  gap: 8px;
+}
+
+.actionButton {
+  min-height: 29px;
+  gap: 4px;
+  border: 0;
+  border-radius: 14px;
+  padding: 0 12px;
+  font-size: 11px;
+  line-height: 17px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: opacity 160ms ease;
+}
+
+.actionButton:hover {
+  opacity: 0.74;
+}
+
+.actionButtonDelete {
+  background: #fff0f2;
+  color: #ce1126;
+}
+
+.actionButtonEdit {
+  background: #f0f7ff;
+  color: #2196f3;
+}
+
+.helperText {
+  margin: 18px 0 0;
+  color: #bbbbbb;
+  text-align: center;
+  font-size: 11px;
+  line-height: 17px;
+}
+
+.helperText strong {
+  font-weight: 800;
+}
+
+.emptyState {
+  min-height: 382px;
+  padding: 64px 32px 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.emptyIconCircle {
+  width: 88px;
+  height: 88px;
+  border-radius: 999px;
+  background: #f0f8ff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emptyState h2 {
+  margin: 20px 0 0;
+  color: #111111;
+  font-size: 17px;
+  line-height: 26px;
+  font-weight: 900;
+}
+
+.emptyState p {
+  max-width: 330px;
+  margin: 6px 0 0;
+  color: #888888;
+  font-size: 13px;
+  line-height: 21px;
+}
+
+.bottomBar {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  z-index: 30;
+  width: 100%;
+  max-width: 393px;
+  padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  background: #ffffff;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.06);
+  transform: translateX(-50%);
+}
+
+.addButton {
+  width: 100%;
+  min-height: 54px;
+  border: 0;
+  border-radius: 16px;
+  background: #ce1126;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(206, 17, 38, 0.28);
+  gap: 8px;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: opacity 160ms ease;
+}
+
+.bottomAddButton {
+  width: 100%;
+}
+
+.emptyAddButton {
+  width: 194px;
+  min-height: 45px;
+  margin-top: 28px;
+  padding: 0 24px;
+  box-shadow: none;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 800;
+}
+
+.addButton:hover {
+  opacity: 0.86;
+}
+
+.deleteOverlay {
+  position: fixed;
+  inset: 0;
+  left: 50%;
+  z-index: 60;
+  width: 100%;
+  max-width: 393px;
+  display: flex;
+  align-items: flex-end;
+  background: rgba(0, 0, 0, 0.5);
+  transform: translateX(-50%);
+}
+
+.overlayDismiss {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.deleteSheet {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  border-radius: 24px 24px 0 0;
+  background: #ffffff;
+  box-shadow: 0 -8px 26px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.sheetHandle {
+  width: 40px;
+  height: 4px;
+  margin: 12px auto 0;
+  border-radius: 999px;
+  background: #dddddd;
+}
+
+.deleteSheetContent {
+  padding: 16px 20px 8px;
+  text-align: center;
+}
+
+.deleteIconCircle {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto;
+  border-radius: 999px;
+  background: #fff0f2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.deleteCopy {
+  margin-top: 18px;
+}
+
+.deleteCopy h2 {
+  margin: 0;
+  color: #111111;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 900;
+}
+
+.deleteCopy p {
+  max-width: 354px;
+  margin: 8px auto 0;
+  color: #777777;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.deleteCopy strong {
+  color: #333333;
+  font-weight: 800;
+}
+
+.deleteSheetActions {
+  padding: 16px 20px calc(16px + env(safe-area-inset-bottom));
+}
+
+.confirmDeleteButton {
+  width: 100%;
+  min-height: 52px;
+  border: 0;
+  border-radius: 16px;
+  background: #ce1126;
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(206, 17, 38, 0.22);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.confirmDeleteButton:hover {
+  opacity: 0.9;
+}
+
+.confirmDeleteButton:active {
+  transform: translateY(1px);
+}
+
+.iconImage {
+  display: block;
+  color: currentColor;
+}
+
+@media (max-width: 360px) {
+  .cardFooter {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .actionRow {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .deliveryNotice {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .screen {
+    max-width: none;
+  }
+
+  .bottomBar {
+    max-width: none;
+  }
+
+  .deleteOverlay {
+    max-width: none;
+  }
+}

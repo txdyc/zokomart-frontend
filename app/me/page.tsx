@@ -1,11 +1,19 @@
+import { redirect } from "next/navigation";
+
 import { buyerApi } from "../../lib/api";
+import { getServerAccessToken } from "../../lib/server-auth";
 import { getApiErrorMessage } from "../../lib/view";
 import { MePageClient } from "./MePageClient";
 import styles from "./page.module.css";
 
 export default async function MePage() {
+  const authToken = await getServerAccessToken();
+  if (!authToken) {
+    redirect("/login?redirect=%2Fme");
+  }
+
   try {
-    const me = await buyerApi.getMe();
+    const me = await buyerApi.getMe(authToken);
     return <MePageClient initialMe={me} />;
   } catch (error) {
     return (

@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { API_PROXY_BASE_PATH, getApiBaseUrl, stripTrailingSlash } from "./lib/url";
 
 type RemotePattern = {
   protocol: "http" | "https";
@@ -8,7 +9,7 @@ type RemotePattern = {
 };
 
 function buildRemotePatterns() {
-  const configuredBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
+  const configuredBaseUrl = getApiBaseUrl();
   const fallbackUrls = ["http://localhost:8000", "http://127.0.0.1:8000"];
   const candidates = [configuredBaseUrl, ...fallbackUrls];
   const uniquePatterns = new Map<string, RemotePattern>();
@@ -34,6 +35,20 @@ function buildRemotePatterns() {
 }
 
 const nextConfig: NextConfig = {
+  async rewrites() {
+    const apiBaseUrl = stripTrailingSlash(getApiBaseUrl());
+
+    return [
+      {
+        source: `${API_PROXY_BASE_PATH}/:path*`,
+        destination: `${apiBaseUrl}/:path*`,
+      },
+      {
+        source: "/public/uploads/:path*",
+        destination: `${apiBaseUrl}/public/uploads/:path*`,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       ...buildRemotePatterns(),

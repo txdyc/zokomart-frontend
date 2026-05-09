@@ -186,10 +186,10 @@ export function HomePageClient({
           </header>
 
           <div className={styles.content}>
-            <section className={styles.deliveryStrip}>
+            <Link className={styles.deliveryStrip} href="/addresses?from=home">
               <span>📍 Delivering to: East Legon, Accra</span>
               <span>›</span>
-            </section>
+            </Link>
 
             <section className={styles.hero}>
               {model.heroSlides.length > 0 ? (
